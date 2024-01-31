@@ -1,0 +1,130 @@
+<ion-content [fullscreen]="true" class="body-container">
+  <section class="parent">
+    
+    <!-- Login Page -->
+    <div class="login-container" *ngIf="!showSignUp && !forgotPass">
+      <!-- <h1 style="text-align: center; font-size: 30px; font-weight: 700; margin-bottom: 20px;">Login</h1> -->
+      <div class="user-image">
+        <img src="../../../assets/Images/user-2.png" alt="user_Image">
+      </div>
+      <form class="form-container" [formGroup]="loginForm">
+
+        <div class="input-field">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input type="email" mode="ios" formControlName="email" placeholder="Email" ></ion-input>
+        </div>
+
+        <div class="input-field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input mode="ios" type="password" placeholder="Password" type="{{ showLoginPassword ? 'text' : 'password' }}" formControlName="password"></ion-input>
+          <ion-icon name="{{ showLoginPassword ? 'eye-off' : 'eye' }}" slot="end" (click)="toggleLoginPasswordVisibility()"></ion-icon>
+        </div>
+
+        <div class="remember-me">
+          <ion-checkbox labelPlacement="end">Remember Me</ion-checkbox>
+        </div>
+
+        <div class="forgot-pass">
+          <ion-text (click)="forgotPass = true">Forgot password?</ion-text>
+        </div>
+
+        <div class="buttons">
+          <ion-button shape="round" size="small" [disabled]="!loginForm.valid" (click)="processEmailPasswordLogin(); saveLogin()">Login</ion-button>
+          <ion-button shape="round" fill="outline" color="dark" size="small" (click)="showSignUp = true">SignUp</ion-button>
+        </div>
+
+        <p style="text-align: center; font-size: 14px; font-weight: 600;">Or</p>
+
+        <div class="social-icons" (click)="processGoogleLogin()">
+          <img src="../../../assets/Images/google-icon.png" alt="">
+          <ion-text>Continue with Google</ion-text>
+          <!-- <ion-button fill="clear" color="dark" (click)="processFacebookLogin()">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="dark">
+            <ion-icon name="logo-apple"></ion-icon>
+          </ion-button> -->
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div class="signup-container" *ngIf="showSignUp">
+      <h1 style="text-align: center; font-size: 20px; font-weight: 700; margin-bottom: 30px;">Create Account</h1>
+      <form class="form-container" [formGroup]="registrationForm">
+
+        <div class="input-field">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-input type="text" mode="ios" placeholder="Name" formControlName="name"></ion-input>
+        </div>
+
+        <div class="input-field">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input type="email" mode="ios" placeholder="Email" formControlName="email"></ion-input>
+        </div>
+
+        <div class="input-field">
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-input type="number" mode="ios" placeholder="Phone" formControlName="phone"></ion-input>
+        </div>
+
+        <div class="input-field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input type="password" mode="ios" placeholder="Password" type="{{ showPassword ? 'text' : 'password' }}" formControlName="password"></ion-input>
+          <ion-icon name="{{ showPassword ? 'eye-off' : 'eye' }}" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
+        </div>
+        
+        <div class="input-field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input type="password"  mode="ios" placeholder="Password" type="{{ showConfirmPassword ? 'text' : 'password' }}" formControlName="password_confirm"></ion-input>
+          <ion-icon name="{{ showConfirmPassword ? 'eye-off' : 'eye' }}" slot="end" (click)="toggleConfirmPasswordVisibility()"></ion-icon>
+        </div>
+
+        <div class="buttons">
+          <ion-button shape="round" fill="outline" color="dark" size="small" [disabled]="!registrationForm.valid" (click)="processRegistration()">signUp</ion-button>
+        </div>
+
+        <p style="text-align: center; font-size: 14px; font-weight: 600;">Or</p>
+
+        <div class="social-icons">
+          <img src="../../../assets/Images/google-icon.png" alt="">
+          <ion-text>Sign Up with Google</ion-text>
+          <!-- <ion-button fill="clear" color="dark">
+            <ion-icon name="logo-google"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="dark">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="dark">
+            <ion-icon name="logo-apple"></ion-icon>
+          </ion-button> -->
+        </div>
+
+        <div class="account">
+          <span>Already have account</span>
+          <ion-button size="small" shape="round" fill="clear" color="dark" (click)="showSignUp = false">Login</ion-button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Forgot Page -->
+    <div class="forgot-password" *ngIf="forgotPass" >
+        <div class="head">
+          <ion-button fill="clear" slot="start" class="ion-no-padding">
+            <ion-icon name="chevron-back-outline" style="color: black;"></ion-icon>
+          </ion-button>
+          <h1>Reset your password</h1>
+        </div>
+        <div class="input-field">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input mode="ios" type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+        </div>
+        <div class="buttons">
+          <ion-button shape="round" (click)="resetPassword(); goToLogin= true">Reset</ion-button>
+        </div>
+    </div>
+</section>
+
+</ion-content>
